@@ -1,36 +1,37 @@
-function Q = quality(X, C, c, R, cost_matrix, request_vector, P)
+function Q = quality(X)
 % Funkcja oceny jakosci chromosomu X
 %   r - wektor wejsciowy
 %   C - wektor pojemnosci ciezarowek
 %   c - wektor kosztow ciezarowek
 %   R - wektor maksymalnego czasu jazdy ciezarowek
 %   cost_matrix - macierz kosztow
-%   request_vector - wektor wielkosci zamowien
+%   orders - wektor wielkosci zamowien
 %   P = [przeladowanie, nadgodziny] - wspolczynniki kary - opcjonalnie 
 
-len = length(X);	% Dlugosc chromosomu
-N = length(C);		% Liczba ciezarowek
+global C c R cost_matrix orders P
 
-Q = 0;
+len = length(X);	% Dlugosc chromosomu
+Cn = length(C);		% Liczba ciezarowek
+
 first = 0;
 car = 0;
-L = 0;	% Car load
-r = 0;	% Length of route
-
 for i = 1:len,	% Find first car
-	if X(i) <= N,
+	if X(i) <= Cn,
 		car = X(i);	% Select car
 		first = i;	% Select first car position
 		break
 	end
 end
 
-X = [X(first:), X(:first)];	% Rotate chromosome X and close cycle
+X = [X(first:end), X(1:first)];	% Rotate chromosome X and close cycle
 
-for i = 1:len,
-	%Q = Q + c(car)*cost_matrix(X(i),X(i+1));
-	
-	if X(i) <= N,	% Car is back in magazine
+Q = 0;
+L = 0;	% Car load
+r = 0;	% Length of route
+
+for i = 1:len+1,
+	%Q = Q + c(car)*cost_matrix(X(i)X(i+1));
+	if X(i) <= Cn,	% Car is back in magazine
 		Q = Q + c(car)*r;	% Add cost of transport using actual car
 		if L > C(car),	% Add punishment for exceeding car load capacity
 			Q = Q + P(1)*(L - C(car));
@@ -42,9 +43,10 @@ for i = 1:len,
 		L = 0;
 		r = 0;
 	else
-		L = L+request_vector(i);	% Actualize load
-		r = r + cost_matrix(X(i),X(i+1));	% Actualize length of route
+		L = L + orders(X(i));	% Actualize load
+		r = r + cost_matrix(X(i), X(i+1));	% Actualize length of route
 	end
+% 	disp ([X(i) car Q L r])
 end
 
 end

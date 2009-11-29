@@ -2,13 +2,14 @@ function Y = fixchromosome(X)
 % Sprawdza poprawnosc chromosomu X, usuwa powtorzenia.
 
 len = length(X);
+Y = X;
 
 rep(len) = 0;	% Repetitions
 change = [];	% Chosen positions with repetitions
 missing = [];	% Missing gens
 
 for i = 1:len,	% Mark repetitions
-	if rep(Y(i)) = 0,
+	if rep(Y(i)) == 0,
 		rep(Y(i)) = i;
 	else
 		if rand() < .5,
@@ -20,7 +21,7 @@ for i = 1:len,	% Mark repetitions
 end
 
 for i = 1:len,	% Find missing values
-	if rep(i) = 0,
+	if rep(i) == 0,
 		missing = [missing, i];
 	end
 end
@@ -29,6 +30,8 @@ for i = 1:length(missing),	% Fix chromosome
 	Y(change(i)) = missing(i);
 end
 
-Y = permute(Y, change);
+if length(change) > 1,
+    Y = partial_permute(Y, change);
+end
 
 end	%fixchromosome
