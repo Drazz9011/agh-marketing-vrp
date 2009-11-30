@@ -1,6 +1,7 @@
 function r = random_solution( size,n )
-%r = random_solution( size,n )
-
+%Generator losowego rozwiazania poczatkowego
+%   size - rozmiar miasta
+%   n - ilosc ciezarowek
 
 r = [1 randperm(size+n-2)+1];
 

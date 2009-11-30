@@ -1,11 +1,11 @@
 function new_r = get_neighbour( r,n )
 
 
-a=2+round(rand*(length(r)-2));
+a=2+floor(rand*(length(r)-1));
 b=a;
 new_r = r;
 while(a==b) 
-    b=2+round(rand*(length(new_r)-2));
+    b=2+floor(rand*(length(new_r)-1));
 end;
 
 tmp = new_r(a);
@@ -20,6 +20,12 @@ for i=1:length(new_r)
        inx = inx +1;
     end    
 end
+
+%dalsze s¹siedztwo
+if(rand>0.8)
+    %display('G³êbokie s¹siedztwo');
+    new_r = get_neighbour( new_r,n );
+end;
 
 end
 
