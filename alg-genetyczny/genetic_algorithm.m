@@ -3,6 +3,8 @@ function [XX QQ] = genetic_algorithm(Ws, iter)
 [XX QQ] = generate(Ws);
 births = ceil(Ws/5);
 mutations = ceil(Ws/20);
+swaps = ceil(Ws/20);
+switches = ceil(Ws/20);
 
 best = zeros(1, iter+1);
 for iteration = 1:iter,
@@ -18,11 +20,20 @@ for iteration = 1:iter,
     end
     if iteration > iter/2, mutations = ceil(Ws/10); end
     for i = 1:mutations,
-        X1 = mutate(X1, ceil(rand*4));
+        X1 = mutate(XX(ceil(rand*Ws),:), ceil(rand*4));
         XX = [XX; X1];
         QQ = [QQ quality(X1)];
     end
-    
+    for i = 1:swaps,
+        X1 = swap2(XX(ceil(rand*Ws),:));
+        XX = [XX; X1];
+        QQ = [QQ quality(X1)];
+    end
+    for i = 1:switches,
+        X1 = switchpoint(XX(ceil(rand*Ws),:));
+        XX = [XX; X1];
+        QQ = [QQ quality(X1)];
+    end
 end
 [XX QQ] = rank(XX, QQ);
 best(iter+1) = QQ(1);
