@@ -11,7 +11,7 @@ P = [0 0];
 x = 1;
 y = 1;
 
-N = 10;
+N = 30;
 
 [cost_matrix points h] = generate_matrix(N, Cn, x, y);
 orders = generate_orders(N, Cn, false, 1);
