@@ -1,17 +1,13 @@
 function [XX QQ] = generate(Ws)
-% function [XX QQ] = generate(size, N, sigma, delta, mi)
+% function [XX QQ] = generate(Ws)
 % Generuje populacje osobnikow.
-%   N - dlugosc chromosomu
 %   Ws - wielkosc populacji
-%   sigma - czestosc [narodzin, mutacji]
-%   delta - odchylka [narodzin, mutacji]
 %   
 % Zwracana jest populacja XX oraz wektor przystosowania QQ.
 
-global C c R cost_matrix points h orders P N Cn
+global N Cn
 len = N+Cn;
 
-% XX(Ws, N) = 0;
 XX = [];
 QQ = [];
 

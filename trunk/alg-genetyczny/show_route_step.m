@@ -1,9 +1,12 @@
-function show_route(X)
+function show_route_step(Q, X, change)
 % Pokazuje wybrana marszrute na mapie
 
 global Cn N cost_matrix points h
 len = N + Cn;
 
+if ~change,
+    return
+end
 
 route = zeros(Cn, len);
 distance = zeros(1,Cn);
@@ -31,13 +34,12 @@ while i<=len,
     route(car, distance(car)) = Y(i);
     i = i+1;
 end
-h = figure;
-hold on;
-figure(h);
+%figure(h);
 %hold on;
-
+figure(1); hold off;
 plot(points(Cn+1:end,1), points(Cn+1:end,2), '.b'); % Wyrysuj polozenia klientow
-plot(points(1,1), points(1,2), '.r');   % Wyrysuj magazyn
+hold on;
+plot(points(1,1), points(1,2), 'or');   % Wyrysuj magazyn
 %hold off;
 colors = ['mcyrgbk'];
 col = 1;
@@ -58,4 +60,4 @@ for i = 1:Cn,
 end
 hold off;
 
-end %show_route
+end %show_route_step
