@@ -6,7 +6,7 @@ function g=goal(r,n,size,cost_matrix)
 %   cost_matrix - macierz kosztow
 
 %typ funkcji celu
-type = 2;
+type = 0;
 
 %1. Najprostrza funkcja celu - suma kosztów
 if(type==0)
