@@ -13,23 +13,31 @@ type = 1;% typ funkcji celu od 0 do 2 - odsylam do quality.m
 [cost_matrix points] = generate_matrix(size, n);
 %%%%%%%%%%%%%%%%%%%%
 
+
+
+
+
 % INICJALIZACJE ALGORYTMOW %
-%algorytm pszczeli
+%algorytm pszczeli INIT
 BEE_routes=[];
 BEE_q=[];
 BEE_time=[];
 bee_init(cost_matrix,n,600,100,50);
 
-%algorytm mrowkowy
+%algorytm mrowkowy INIT
 %TODO
 
-%algorytm genetyczny
+%algorytm genetyczny INIT
 %TODO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+
+
 % GLOWNA PETLA ALGORYTMOW %
 for k=1:max_iter
-    %algorytm pszczeli    
+    %algorytm pszczeli STEP     
     tic;
     [best_route best_q] = bee_step; 
     BEE_time = [BEE_time toc];
@@ -59,10 +67,10 @@ for k=1:max_iter
     set(3,'Position',[725 -238 704 320]);
     grid on;
     
-    %algorytm mrowkowy
+    %algorytm mrowkowy STEP
     %TODO
 
-    %algorytm genetyczny
+    %algorytm genetyczny STEP
     %TODO
 
     pause(0.01);
