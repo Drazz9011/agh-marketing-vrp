@@ -6,8 +6,20 @@ function show_path( fig, X, points, n, clear,name)
 % n - ilosc ciezarowek
 % clear - czysci figure przed wyswietleniem
 % name - nazwa wykresu
+
+first = 0;
+for i = 1:length(X),	% Find first car
+	if X(i) == 1,
+		first = i;	% Select first car position
+		break
+	end
+end
+if first ~= 1,  % Zawin sciezke tak, zeby zaczynala sie od wyjazdu ciezarowki z magazynu
+    X = [X(first:end); X(1:first-1)];
+end
 X = [X; 1];
-route = zeros(length(X),3);
+
+route = ones(length(X),3);
 car=0;
 for i=1:length(X)
     route(i,1:2) = points(X(i),1:2);

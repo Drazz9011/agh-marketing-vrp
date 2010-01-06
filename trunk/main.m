@@ -7,9 +7,12 @@ addpath mrowkowy;
 
 % ZADANIE PROBLEMU %
 global n size cost_matrix type;
-max_iter = 150;%maksymalna ilosc iteracji
+max_iter = 5;%maksymalna ilosc iteracji
 n = 3; %ilosc ciezarowek
 size = 20; %rozmiar miasta
+global N Cn
+Cn = n;
+N = size;
 type = 1;% typ funkcji celu od 0 do 2 - odsylam do quality.m
 
 [cost_matrix points] = generate_matrix(size, n);
@@ -36,7 +39,7 @@ ant_init(cost_matrix, n, inf, 0.3, 0.5, 4.0, 0.2, 1, 0.6, 1, 600, 1000);
 GEN_routes=[];
 GEN_q=[];
 GEN_time=[];
-%gen_init(600);
+gen_init(100);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -108,15 +111,15 @@ for k=1:max_iter
     grid on;
 
     %algorytm genetyczny STEP
-    if(false)
+%     if(false)
         
     tic;
     [best_route best_q] = gen_step; 
     GEN_time = [GEN_time toc];
     GEN_routes = [GEN_routes best_route];
-    GEN_q = [BEE_q best_q];
+    GEN_q = [GEN_q best_q];
     
-    show_path( 4, best_route, points, n,0,'Best GEN algorithm solution graph');
+    show_path( 4, best_route', points, n,0,'Best GEN algorithm solution graph');
     set(4,'Position',[0 0 704 772]);
     
     figure(2);
@@ -138,7 +141,7 @@ for k=1:max_iter
     plot(k,sum(GEN_time),'.r');
     set(3,'Position',[718 49 704 284]);
     grid on;
-    end;
+%     end;
     %%%%%%%%%%%%%%%%%%%%%%%%%
     pause(0.01);
 end;
