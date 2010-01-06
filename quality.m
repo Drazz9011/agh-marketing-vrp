@@ -23,7 +23,7 @@ end;
 if(type==1)
     g = 0;
     r=r';
-    
+    punish = 0;
     for i=1:size+n-2
         if (r(i)<=n); punish = 0; end;
         punish = punish +1;
