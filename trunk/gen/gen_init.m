@@ -5,7 +5,7 @@ function [X Q] = gen_init(Ws)
 % X   - najlepsza dotychczas trase
 % Q   - ocene najlepszej trasy
 
-global gen_Ws gen_births gen_mutations gen_swaps switches gen_XX gen_QQ gen_S
+global gen_Ws gen_births gen_mutations gen_swaps switches gen_XX gen_QQ
 
 gen_Ws = Ws;
 
@@ -21,9 +21,9 @@ switches = ceil(gen_Ws/5);
 % Eliminate repeated routes
 [gen_XX gen_QQ] = uniqueroute(gen_XX, gen_QQ);
 
-X = gen_XX(1,:);
+X = [1, gen_XX(1,:)];
 Q = gen_QQ(1);
 
-gen_S = mean(gen_QQ);
+% gen_S = mean(gen_QQ);
 
 end %gen_init

@@ -7,7 +7,7 @@ addpath mrowkowy;
 
 % ZADANIE PROBLEMU %
 global n size cost_matrix type;
-max_iter = 5;%maksymalna ilosc iteracji
+max_iter = 50;%maksymalna ilosc iteracji
 n = 3; %ilosc ciezarowek
 size = 20; %rozmiar miasta
 global N Cn

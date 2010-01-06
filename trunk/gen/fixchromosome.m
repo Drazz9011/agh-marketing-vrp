@@ -4,7 +4,7 @@ function Y = fixchromosome(X)
 len = length(X);
 Y = X;
 
-rep(len) = 0;	% Repetitions
+rep = zeros(len+1);	% Repetitions
 change = [];	% Chosen positions with repetitions
 missing = [];	% Missing gens
 
@@ -20,7 +20,7 @@ for i = 1:len,	% Mark repetitions
 	end
 end
 
-for i = 1:len,	% Find missing values
+for i = 2:len+1,	% Find missing values
 	if rep(i) == 0,
 		missing = [missing, i];
 	end
