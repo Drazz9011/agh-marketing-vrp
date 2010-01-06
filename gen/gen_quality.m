@@ -1,23 +1,7 @@
-function Q = quality(X)
+function Q = gen_quality(X)
 % Funkcja oceny jakosci chromosomu X
 
-first = 0;
-for i = 1:length(X),	% Find first car
-	if X(i) == 1,
-		first = i;	% Select first car position
-		break
-	end
-end
-if first ~= 1,  % Zawin sciezke tak, zeby zaczynala sie od wyjazdu ciezarowki z magazynu
-    X = [X(first:end); X(1:first-1)];
-end
-
-dir = pwd;
-cd ..
-
-Q = quality(X);
-
-cd(dir);
+Q = quality([1, X]);
 
 % %   r - wektor wejsciowy
 % %   C - wektor pojemnosci ciezarowek
