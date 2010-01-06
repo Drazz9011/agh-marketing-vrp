@@ -1,11 +1,11 @@
-function show_path( fig, X, points, n, clear)
+function show_path( fig, X, points, n, clear,name)
 %FUNKCJA RYSUJACA TRASE
 % fig - numer wykresu na ktorym ma byc umieszczone rozwiazanie
 % X - wektor rozwiazania
 % points - punkty na mapie
 % n - ilosc ciezarowek
 % clear - czysci figure przed wyswietleniem
-
+% name - nazwa wykresu
 X = [X; 1];
 route = zeros(length(X),3);
 car=0;
@@ -22,7 +22,7 @@ if(clear==0);
 end;
 plot3(route(:,1),route(:,2),1:length(route),'.b');
 grid on;
-title('Best solution graph');
+title(name);
 xlabel('x');
 ylabel('y');
 zlabel('Move number'); 
