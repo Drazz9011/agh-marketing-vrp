@@ -12,7 +12,7 @@ global n size cost_matrix type;
 if(type==0)
     g = 0;
     r=r';
-    for i=1:size+n-2
+    for i=1:(length(r)-1)
        g = g + cost_matrix(r(i),r(i+1));        
     end
     g = g+cost_matrix(r(end),1);
@@ -23,7 +23,8 @@ end;
 if(type==1)
     g = 0;
     r=r';
-    for i=1:size+n-2
+    
+    for i=1:(length(r)-1)
         if (r(i)<=n); punish = 0; end;
         punish = punish +1;
         g = g + punish*cost_matrix(r(i),r(i+1));        
@@ -38,7 +39,7 @@ if(type==2)
     r=r';
     moves_count = 0;
     max_moves = 20;
-    for i=1:size+n-2
+    for i=1:(length(r)-1)
         if (r(i)<=n); moves_count = 0; end;
         moves_count = moves_count +1;
         if( moves_count >= max_moves)
