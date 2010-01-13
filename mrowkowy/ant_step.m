@@ -2,7 +2,7 @@ function [najlepsze_rozw najlepsza_wartosc] = ant_step
 
 global ANT_iteracja ANT_iteracja_poprawa ANT_poprawa ANT_k ANT_populacja;
 global ANT_fer ANT_ro ANT_ferIt ANT_M ANT_L ANT_par ANT_najlepszy_koszt;
-global ANT_najlepsza_sc;
+global ANT_najlepsza_sc ANT_C;
 
 %sprawdzenie warunku przerwania algorytmu
 %Jeœli jest spe³niony, wykonujemy krok
@@ -11,8 +11,20 @@ if ((ANT_iteracja-ANT_iteracja_poprawa) <= ANT_poprawa)
     %Jeœli przesz³a ju¿ ca³a populacja (ANT_k = ANT_populacja)
     %to zakoñczenie poprzedniej du¿ej interacji i inicjalizacja nastêpnej
     if (ANT_k >= ANT_populacja)
+        %skalowanie ANT_fer
+        %maks_fer = max(max(ANT_fer));
+        %if maks_fer>0
+        %    ANT_fer = ANT_fer / maks_fer;
+        %end
+        %skalowanie ANT_ferIt
+        %maks_ferIt = max(max(ANT_ferIt));
+        %if maks_ferIt>0
+        %    ANT_ferIt = ANT_ferIt / maks_ferIt;
+        %end
+        
         %parowanie
         ANT_fer = (1 - ANT_ro)*ANT_fer + ANT_ferIt;
+        %ANT_fer = ANT_fer + ANT_ferIt;
         ANT_ferIt = zeros(size(ANT_M));
         ANT_iteracja = ANT_iteracja + 1;
         ANT_k = 0;
@@ -28,7 +40,7 @@ if ((ANT_iteracja-ANT_iteracja_poprawa) <= ANT_poprawa)
     %jeœli nie dotar³a:
     %  
     if ~(isempty(sc))
-        koszt_sc = quality2(sc(1:end-1));
+        koszt_sc = quality(sc(1:end-1));
         dawka = 1/koszt_sc;
         for i = 1:(max(size(sc))-1)
             ANT_ferIt(sc(i),sc(i+1)) = ANT_ferIt(sc(i),sc(i+1)) + dawka;
@@ -36,12 +48,19 @@ if ((ANT_iteracja-ANT_iteracja_poprawa) <= ANT_poprawa)
         end
         if (koszt_sc < ANT_najlepszy_koszt)
             ANT_najlepszy_koszt = koszt_sc;
-            ANT_najlepsza_sc = sc;
+            ANT_najlepsza_sc = sc(1:end-1);
             ANT_iteracja_poprawa = ANT_iteracja;
         end
     end
-   %zwrócenie wyniku
-   najlepsze_rozw = ANT_najlepsza_sc(1:end-1);
+   %zwrócenie wyniku, trzeba uzupe³niæ za krótk¹ œcie¿kê ciê¿arówkami
+   if length(ANT_najlepsza_sc) < length(ANT_M)
+       ostatnia_ciez = max(intersect(ANT_najlepsza_sc, 1:ANT_C));
+       for c = (ostatnia_ciez+1):ANT_C
+           ANT_najlepsza_sc = [ANT_najlepsza_sc c];
+       end
+   end
+       
+   najlepsze_rozw = ANT_najlepsza_sc;
    najlepsza_wartosc = ANT_najlepszy_koszt;    
 
 %Nie wykonujemy kroku

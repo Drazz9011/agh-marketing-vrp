@@ -7,7 +7,7 @@ addpath mrowkowy;
 
 % ZADANIE PROBLEMU %
 global n size cost_matrix type;
-max_iter = 50;%maksymalna ilosc iteracji
+max_iter = 140;%maksymalna ilosc iteracji
 n = 3; %ilosc ciezarowek
 size = 20; %rozmiar miasta
 global N Cn
@@ -33,7 +33,8 @@ bee_init(cost_matrix,n,1000,500,200);
 ANT_routes=[];
 ANT_q=[];
 ANT_time=[];
-ant_init(cost_matrix, n, inf, 0.3, 0.5, 4.0, 0.2, 1, 0.6, 1, 600, 1000);
+ant_init(cost_matrix, n, inf, 2, 10.0,   1, 0.3, 1, 4.0,  1, 200, Inf);
+%                    Cie,poj,bet,al1,  al2, ro, g1,  g2, g3, pop, popr
 
 %algorytm genetyczny INIT
 GEN_routes=[];
@@ -79,10 +80,12 @@ for k=1:max_iter
     grid on;
     
     %algorytm mrowkowy STEP
-    [najlepsze_rozw najlepsza_wartosc] = ant_step;
+    %[najlepsze_rozw najlepsza_wartosc] = ant_step;
      
     tic;
-    [best_route best_q] = ant_step; 
+    for ANT_k = 1:30
+        [best_route best_q] = ant_step; 
+    end;
     ANT_time = [ANT_time toc];
     ANT_routes = [ANT_routes best_route'];
     ANT_q = [ANT_q best_q];
