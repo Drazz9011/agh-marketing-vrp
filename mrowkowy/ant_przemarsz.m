@@ -7,6 +7,8 @@ function sciezka = ant_przemarsz(graf, L, feromon, par)
 
 mrowka.Li = par.poj;
 mrowka.odw = 0;
+mrowka.odwC = 1;
+mrowka.odwfromC = 0;
 mrowka.sciezka = [];
 
 
@@ -18,9 +20,12 @@ while (strcmp(blad,'ok'))
     mrowka.sciezka = [mrowka.sciezka cel];
     if (cel <= par.C)
         mrowka.Li = par.poj;
+        mrowka.odwC = mrowka.odwC + 1;
+        mrowka.odwfromC = 0;
     else
         mrowka.Li = mrowka.Li - L(cel);
         mrowka.odw = mrowka.odw + 1;
+        mrowka.odwfromC = mrowka.odwfromC + 1;
     end
     
     [blad cel] = krok_mrowka(graf, L, feromon, mrowka, par);

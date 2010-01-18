@@ -14,7 +14,7 @@ function ant_init(matrix, C, poj, beta, alfa1, alfa2, ro, gamma1, gamma2, gamma3
 
 global ANT_fer ANT_najlepsza_sc ANT_najlepszy_koszt ANT_iteracja_poprawa ANT_iteracja;
 global ANT_poprawa ANT_ferIt ANT_beta ANT_alfa1 ANT_alfa2 ANT_ro ANT_gamma1 ANT_gamma2 ANT_gamma3;
-global ANT_populacja ANT_L ANT_poj ANT_par ANT_k ANT_M;
+global ANT_populacja ANT_L ANT_poj ANT_par ANT_k ANT_M ANT_C;
 
 %inicjalizacja parametrów
 ANT_M = matrix;

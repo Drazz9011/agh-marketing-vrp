@@ -33,7 +33,7 @@ bee_init(cost_matrix,n,1000,500,200);
 ANT_routes=[];
 ANT_q=[];
 ANT_time=[];
-ant_init(cost_matrix, n, inf, 2, 10.0,   1, 0.3, 1, 4.0,  1, 200, Inf);
+ant_init(cost_matrix, n, inf,1.6, 30,   1, 0.5, 3,  15,  1,  40, Inf);
 %                    Cie,poj,bet,al1,  al2, ro, g1,  g2, g3, pop, popr
 
 %algorytm genetyczny INIT

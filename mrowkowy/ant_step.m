@@ -54,7 +54,8 @@ if ((ANT_iteracja-ANT_iteracja_poprawa) <= ANT_poprawa)
     end
    %zwrócenie wyniku, trzeba uzupe³niæ za krótk¹ œcie¿kê ciê¿arówkami
    if length(ANT_najlepsza_sc) < length(ANT_M)
-       ostatnia_ciez = max(intersect(ANT_najlepsza_sc, 1:ANT_C));
+       ciezarowki = [1 intersect(ANT_najlepsza_sc, 1:ANT_C)];
+       ostatnia_ciez = max(ciezarowki);
        for c = (ostatnia_ciez+1):ANT_C
            ANT_najlepsza_sc = [ANT_najlepsza_sc c];
        end
