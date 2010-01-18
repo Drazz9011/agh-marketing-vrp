@@ -12,6 +12,8 @@ function [blad, cel] = krok_mrowka(graf, L, feromon, mrowka, par)
 %       'ok' wybrano nastêpny wêze³ grafu
 %cel - wybrany wêze³ grafu. Ma sens, jeœli blad 'ok'
 
+global type;
+
 if (mrowka.odw >= par.N)
     blad = 'koniec trasy';
     cel = -1;
@@ -25,11 +27,16 @@ lista = setdiff(lista, mrowka.sciezka);
 
 %przygotowanie listy celów
 %2. zlokalizowanie i dodanie nastêpnego magazynu (ciê¿arówki)
-lista_magazynow = intersect(1:(par.C), mrowka.sciezka);
-if isempty(lista_magazynow)
-    lista = [2 lista];
-elseif (max(lista_magazynow)+1) <= par.C
-    lista = [max(lista_magazynow)+1 lista];
+    % lista_magazynow = intersect(1:(par.C), mrowka.sciezka);
+    % if isempty(lista_magazynow)
+    %     lista = [2 lista];
+    % elseif (max(lista_magazynow)+1) <= par.C
+    %     lista = [max(lista_magazynow)+1 lista];
+    % end
+if ~(type==0 && par.poj==Inf)    
+    if (mrowka.odwC+1) <= par.C
+        lista = [mrowka.odwC+1 lista];    
+    end
 end
 
 %przygotowanie listy celów, 3. Punkty wymagaj¹ce zbyt wiele pojemnoœci
@@ -56,10 +63,16 @@ else
 end
 wagi_lista = [];
 for i = lista
-    if (graf(loc,i) > 0)
+    if (type==1)
+        if (graf(loc,i) > 0)
+            waga = (1.0 + par.alfa1*feromon(loc,i)^par.alfa2)/graf(loc,i)^(par.beta^(mrowka.odwfromC+1));
+        else
+            waga = (par.gamma1^mrowka.odwfromC)*(1.0 + par.gamma2*feromon(loc,i)^par.gamma3);
+        end
+    elseif (graf(loc,i) > 0)
         waga = (1.0 + par.alfa1*feromon(loc,i)^par.alfa2)/graf(loc,i)^par.beta; 
     else
-        waga = par.gamma1 + par.gamma2*feromon(loc,i)^par.gamma3;
+        waga = 1.0 + par.gamma2*feromon(loc,i)^par.gamma3;
     end
     wagi_lista = [wagi_lista waga];
 end
