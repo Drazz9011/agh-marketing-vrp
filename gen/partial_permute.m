@@ -7,7 +7,7 @@ len = length(change);
 
 if len > 1,
     order = change;
-    while order == change,
+    while isequal(order, change),
         order = permute_vector(change, randperm(len));
     end
 
