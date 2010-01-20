@@ -1,35 +1,35 @@
-function varargout = mainGUI(varargin)
-% MAINGUI M-file for mainGUI.fig
-%      MAINGUI, by itself, creates a new MAINGUI or raises the existing
+function varargout = mainGUI3(varargin)
+% MAINGUI3 M-file for mainGUI3.fig
+%      MAINGUI3, by itself, creates a new MAINGUI3 or raises the existing
 %      singleton*.
 %
-%      H = MAINGUI returns the handle to a new MAINGUI or the handle to
+%      H = MAINGUI3 returns the handle to a new MAINGUI3 or the handle to
 %      the existing singleton*.
 %
-%      MAINGUI('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in MAINGUI.M with the given input arguments.
+%      MAINGUI3('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in MAINGUI3.M with the given input arguments.
 %
-%      MAINGUI('Property','Value',...) creates a new MAINGUI or raises the
+%      MAINGUI3('Property','Value',...) creates a new MAINGUI3 or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before mainGUI_OpeningFcn gets called.  An
+%      applied to the GUI before mainGUI3_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to mainGUI_OpeningFcn via varargin.
+%      stop.  All inputs are passed to mainGUI3_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help mainGUI
+% Edit the above text to modify the response to help mainGUI3
 
-% Last Modified by GUIDE v2.5 18-Jan-2010 00:31:36
+% Last Modified by GUIDE v2.5 20-Jan-2010 10:47:04
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @mainGUI_OpeningFcn, ...
-                   'gui_OutputFcn',  @mainGUI_OutputFcn, ...
+                   'gui_OpeningFcn', @mainGUI3_OpeningFcn, ...
+                   'gui_OutputFcn',  @mainGUI3_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,21 +44,21 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before mainGUI is made visible.
-function mainGUI_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before mainGUI3 is made visible.
+function mainGUI3_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to mainGUI (see VARARGIN)
+% varargin   command line arguments to mainGUI3 (see VARARGIN)
 
-% Choose default command line output for mainGUI
+% Choose default command line output for mainGUI3
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes mainGUI wait for user response (see UIRESUME)
+% UIWAIT makes mainGUI3 wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 % ustawic zminne globalne
@@ -96,8 +96,10 @@ ylabel(handles.axes_GUI_mapa_miast,'Y');
 % end
 
 
+
+
 % --- Outputs from this function are returned to the command line.
-function varargout = mainGUI_OutputFcn(hObject, eventdata, handles) 
+function varargout = mainGUI3_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -117,8 +119,10 @@ global n size cost_matrix type points max_iter N Cn;
 Cn = n;
 N = size;
 
-clear('-regexp', '!n|!size|!cost_matrix|!type|!max_iter|!points|!N|!Cn|!GUI_BEE_scouts|!GUI_BEE_paths_count|!GUI_BEE_workers|!GUI_ANT_wspolczynnik_parowania|!GUI_ANT_rozmiar_jednej_populacji|!GUI_GEN_poczatkowa_wielkosc_populacji');
+
 %zostaw tylko najwazniejsze wartosci:
+clear('-regexp', '!n|!size|!cost_matrix|!type|!max_iter|!points|!N|!Cn|!GUI_BEE_scouts|!GUI_BEE_paths_count|!GUI_BEE_workers|!GUI_ANT_wspolczynnik_parowania|!GUI_ANT_rozmiar_jednej_populacji|!GUI_GEN_poczatkowa_wielkosc_populacji');
+
 % clearvars -global -except...
 %     n size cost_matrix type max_iter points N Cn... 
 %     GUI_BEE_scouts GUI_BEE_paths_count GUI_BEE_workers...
@@ -228,7 +232,8 @@ for k=1:max_iter
 
     
     
-    
+%     gui_figure_handle = figure(gcbf);
+%     set(gui_figure_handle,'CurrentAxes',handles.axes_GUI_mapa_miast);
     % rysowanie drogi
     % set(0,'CurrentFigure',gcbf);
     gui_figure_handle = figure(gcbf);
@@ -295,14 +300,10 @@ hold off;
 plot(handles.axes_GUI_mapa_miast, points(:,1), points(:,2),'ok');
 if(mat_row_length(points)>=1)
     hold on;
-    plot(h, points(1,1), points(1,2),...
-        'o',...
-        'LineWidth',2,...
-        'color', 'k', ...
-        'MarkerFaceColor','r',...
-        'MarkerSize',10);
+    plot(h, points(1,1), points(1,2),'or');
     hold off;
 end
+
 
 
 
@@ -339,15 +340,15 @@ else
     [cost_matrix points] = generate_matrix(size, n);
     Cn = n;
     N = size;
-    gui_figure_handle = figure(gcbf);
-    set(gui_figure_handle,'CurrentAxes',handles.axes_GUI_mapa_miast);
+gui_figure_handle = figure(gcbf);
+set(gui_figure_handle,'CurrentAxes',handles.axes_GUI_mapa_miast);
+hold off;
+plot(handles.axes_GUI_mapa_miast, points(:,1), points(:,2),'ok');
+if(mat_row_length(points)>=1)
+    hold on;
+    plot(h, points(1,1), points(1,2),'or');
     hold off;
-    plot(handles.axes_GUI_mapa_miast, points(:,1), points(:,2),'ok');
-    if(mat_row_length(points)>=1)
-        hold on;
-        plot(h, points(1,1), points(1,2),'or');
-        hold off;
-    end
+end
 end
 
 
@@ -441,19 +442,20 @@ else
     Cn = n;
     N = size;
     gui_figure_handle = figure(gcbf);
-    set(gui_figure_handle,'CurrentAxes',handles.axes_GUI_mapa_miast);
+set(gui_figure_handle,'CurrentAxes',handles.axes_GUI_mapa_miast);
+hold off;
+plot(handles.axes_GUI_mapa_miast, points(:,1), points(:,2),'ok');
+if(mat_row_length(points)>=1)
+    hold on;
+    plot(h, points(1,1), points(1,2),...
+        'o',...
+        'LineWidth',2,...
+        'color', 'k', ...
+        'MarkerFaceColor','r',...
+        'MarkerSize',10);
     hold off;
-    plot(handles.axes_GUI_mapa_miast, points(:,1), points(:,2),'ok');
-    if(mat_row_length(points)>=1)
-        hold on;
-        plot(h, points(1,1), points(1,2),...
-            'o',...
-            'LineWidth',2,...
-            'color', 'k', ...
-            'MarkerFaceColor','r',...
-            'MarkerSize',10);
-        hold off;
-    end
+end
+
 end
 
 % --- Executes during object creation, after setting all properties.
