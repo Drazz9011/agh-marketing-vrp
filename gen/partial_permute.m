@@ -6,7 +6,6 @@ Y = X;
 len = length(change);
 
 if len > 1,
-    %permit_order = 1:N+2;
     order = change;
     while order == change,
         order = permute_vector(change, randperm(len));

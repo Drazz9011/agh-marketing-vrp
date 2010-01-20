@@ -5,8 +5,8 @@ function [XX QQ] = generate(Ws)
 %   
 % Zwracana jest populacja XX oraz wektor przystosowania QQ.
 
-global N Cn
-len = N+Cn-1;
+global size n
+len = size+n-1;
 
 XX = [];
 QQ = [];
