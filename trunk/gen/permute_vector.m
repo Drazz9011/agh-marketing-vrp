@@ -7,6 +7,8 @@ if len == length(P),
     for i = 1:len,
         Y(i) = X(P(i));
     end
+else
+    Y = X;
 end
 
 end %permute_vector

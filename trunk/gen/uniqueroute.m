@@ -1,22 +1,21 @@
 function [YY Q1] = uniqueroute(XX, QQ)
 
 [rows, cols] = size(XX);
-YY = [];
-Q1 = [];
-for i=1:rows-1,
-    if QQ(i) ~= QQ(i+1),
-        if XX(i,:) == XX(i+1,:),
-        else
-            YY = [YY; XX(i,:)];
-            Q1 = [Q1 QQ(i)];
-        end
+
+YY = zeros(rows, cols);
+Q1 = zeros(1, cols);
+act_size = 1;
+YY(act_size, :) = XX(1,:);
+Q1(act_size) = QQ(1);
+for i=2:rows,
+    if ((QQ(i-1) ~= QQ(i)) || ~isequal(XX(i-1,:), XX(i,:))),
+        act_size = act_size + 1;
+        YY(act_size, :) = XX(i,:);
+        Q1(act_size) = QQ(i);
     end
 end
 
-if YY(end,:) == XX(rows,:),
-else
-    YY = [YY; XX(rows,:)];
-    Q1 = [Q1 QQ(rows)];
-end
+YY = YY(1:act_size, :);
+Q1 = Q1(1:act_size);
 
 end %uniqueroute
