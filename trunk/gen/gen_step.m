@@ -6,10 +6,10 @@ function [X Q] = gen_step()
 %
 % Przed pierwszym wywolaniem gen_step nalezy wykonac gen_init.
 
-global gen_Ws gen_births gen_mutations gen_swaps switches gen_XX gen_QQ
+global gen_Ws gen_cross_operations gen_mutations gen_swaps gen_switches gen_XX gen_QQ
 
 % Do cross operation
-for i = 1:gen_births,
+for i = 1:gen_cross_operations,
     couple = parent_selection(gen_Ws);
     [X1 X2] = cross(gen_XX(couple(1), :), gen_XX(couple(2), :), ceil(rand*5));
     gen_XX = [gen_XX; X1; X2];
@@ -31,7 +31,7 @@ for i = 1:gen_swaps,
 end
 
 % Do switch mutation
-for i = 1:switches,
+for i = 1:gen_switches,
     X1 = switchpoint(gen_XX(ceil(rand*gen_Ws),:));
     gen_XX = [gen_XX; X1];
     gen_QQ = [gen_QQ gen_quality(X1)];
@@ -39,15 +39,15 @@ end
 
 % Sort population
 [gen_XX gen_QQ] = rank(gen_XX, gen_QQ);
+
 % Eliminate repeated routes
 [gen_XX gen_QQ] = uniqueroute(gen_XX, gen_QQ);
+
 % Reduce population's size
 gen_XX = gen_XX(1:gen_Ws, :);
 gen_QQ = gen_QQ(1:gen_Ws);
 
 X = [1, gen_XX(1,:)];
 Q = gen_QQ(1);
-
-% gen_S = [gen_S mean(gen_QQ)];
 
 end %gen_step
