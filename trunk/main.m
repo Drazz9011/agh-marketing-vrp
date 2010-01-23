@@ -6,8 +6,9 @@ addpath gen;
 addpath mrowkowy;
 
 % ZADANIE PROBLEMU %
+
 global n size cost_matrix type;
-max_iter = 140;%maksymalna ilosc iteracji
+max_iter = 80;%maksymalna ilosc iteracji
 n = 3; %ilosc ciezarowek
 size = 20; %rozmiar miasta
 global N Cn
@@ -19,15 +20,12 @@ type = 1;% typ funkcji celu od 0 do 2 - odsylam do quality.m
 %%%%%%%%%%%%%%%%%%%%
 
 
-
-
-
 % INICJALIZACJE ALGORYTMOW %
 %algorytm pszczeli INIT
 BEE_routes=[];
 BEE_q=[];
 BEE_time=[];
-bee_init(cost_matrix,n,1000,500,200);
+bee_init(cost_matrix,n,200,5,3); % parametry opisane w pliku
 
 %algorytm mrowkowy INIT
 ANT_routes=[];
@@ -40,7 +38,7 @@ ant_init(cost_matrix, n, inf,1.6, 30,   1, 0.5, 3,  15,  1,  40, Inf);
 GEN_routes=[];
 GEN_q=[];
 GEN_time=[];
-gen_init(100);
+gen_init(100); % parametry opisane w pliku
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -61,7 +59,7 @@ for k=1:max_iter
     
     figure(2);
     hold on;
-    title('Best solution graph');
+    title('Best solution graph (blue-bee,red-gen,green-ant)');
     xlabel('Iteration');
     ylabel('Quality function');
     plot(BEE_q,'.b');
@@ -71,7 +69,7 @@ for k=1:max_iter
     
     figure(3);
     hold on;
-    title('Step time graph / Cumulative time');
+    title('Step time graph / Cumulative time (blue-bee,red-gen,green-ant)');
     xlabel('Iteration');
     ylabel('Time [s]');
     plot(BEE_time,'.b');
@@ -95,7 +93,7 @@ for k=1:max_iter
     
     figure(2);
     hold on;
-    title('Best solution graph');
+    title('Best solution graph (blue-bee,red-gen,green-ant)');
     xlabel('Iteration');
     ylabel('Quality function');
     plot(ANT_q,'.g');
@@ -105,7 +103,7 @@ for k=1:max_iter
     
     figure(3);
     hold on;
-    title('Step time graph / Cumulative time');
+    title('Step time graph / Cumulative time (blue-bee,red-gen,green-ant)');
     xlabel('Iteration');
     ylabel('Time [s]');
     plot(ANT_time,'.g');
@@ -114,8 +112,6 @@ for k=1:max_iter
     grid on;
 
     %algorytm genetyczny STEP
-%     if(false)
-        
     tic;
     [best_route best_q] = gen_step; 
     GEN_time = [GEN_time toc];
@@ -127,7 +123,7 @@ for k=1:max_iter
     
     figure(2);
     hold on;
-    title('Best solution graph');
+    title('Best solution graph (blue-bee,red-gen,green-ant)');
     xlabel('Iteration');
     ylabel('Quality function');
     plot(GEN_q,'.r');
@@ -137,14 +133,13 @@ for k=1:max_iter
     
     figure(3);
     hold on;
-    title('Step time graph / Cumulative time');
+    title('Step time graph / Cumulative time (blue-bee,red-gen,green-ant)');
     xlabel('Iteration');
     ylabel('Time [s]');
     plot(GEN_time,'.r');
     plot(k,sum(GEN_time),'.r');
     set(3,'Position',[718 49 704 284]);
     grid on;
-%     end;
     %%%%%%%%%%%%%%%%%%%%%%%%%
     pause(0.01);
 end;

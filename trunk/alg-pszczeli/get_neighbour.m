@@ -22,7 +22,7 @@ for i=1:length(new_r)
 end
 
 %dalsze s¹siedztwo
-if(rand>0.8)
+if(rand>0.7)
     %display('G³êbokie s¹siedztwo');
     new_r = get_neighbour( new_r,n );
 end;
